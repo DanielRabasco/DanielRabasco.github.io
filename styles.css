@@ -1,3 +1,4 @@
+/* styles.css */
 * {
     margin: 0;
     padding: 0;
@@ -6,8 +7,9 @@
 
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
-    color: #ffffff;
+    /* Fondo principal sólido */
+    background-color: #0F0F1A;
+    color: #E0E0E0; /* Texto principal más suave */
     overflow-x: hidden;
 }
 
@@ -26,9 +28,10 @@ body {
     position: absolute;
     width: 2px;
     height: 2px;
-    background: rgba(64, 224, 208, 0.6);
+    background: rgba(0, 206, 209, 0.6); /* Cyber Teal con transparencia */
     border-radius: 50%;
     animation: float 6s ease-in-out infinite;
+    /* will-change: transform, opacity; */
 }
 
 @keyframes float {
@@ -43,7 +46,7 @@ header {
     width: 100%;
     padding: 1rem 2rem;
     backdrop-filter: blur(20px);
-    background: rgba(15, 15, 35, 0.9);
+    background: rgba(15, 15, 26, 0.95); /* Fondo del header más oscuro */
     z-index: 1000;
     transition: all 0.3s ease;
 }
@@ -59,10 +62,7 @@ nav {
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #00CED1; /* Color sólido Cyber Teal para el logo */
 }
 
 .nav-links {
@@ -72,14 +72,14 @@ nav {
 }
 
 .nav-links a {
-    color: #ffffff;
+    color: #E0E0E0; /* Texto principal más suave */
     text-decoration: none;
     transition: all 0.3s ease;
     position: relative;
 }
 
 .nav-links a:hover {
-    color: #40e0d0;
+    color: #00CED1; /* Cyber Teal al pasar el ratón */
 }
 
 .nav-links a::after {
@@ -89,7 +89,7 @@ nav {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+    background: #00CED1; /* Cyber Teal sólido para el underline */
     transition: width 0.3s ease;
 }
 
@@ -109,18 +109,14 @@ nav {
 }
 
 .hero-content {
-    max-width: 800px;
     animation: fadeInUp 1s ease-out;
 }
 
 .hero h1 {
     font-size: 4rem;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b, #4ecdc4);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: gradient 3s ease-in-out infinite;
+    color: #00CED1; /* Color sólido Cyber Teal para el título principal */
+    /* No se usa el keyframe 'gradient' ya que no hay gradientes de texto */
 }
 
 .hero p {
@@ -133,19 +129,21 @@ nav {
 .cta-button {
     display: inline-block;
     padding: 15px 40px;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+    background-color: #00CED1; /* Botón sólido Cyber Teal */
     border: none;
     border-radius: 50px;
-    color: white;
+    color: #0F0F1A; /* Texto oscuro para el botón brillante */
     text-decoration: none;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 10px 30px rgba(64, 224, 208, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 206, 209, 0.3); /* Sombra basada en Cyber Teal */
 }
 
 .cta-button:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(64, 224, 208, 0.4);
+    box-shadow: 0 20px 40px rgba(0, 206, 209, 0.4);
+    background-color: #9370DB; /* Electric Violet al pasar el ratón */
+    color: #E0E0E0; /* Texto blanco suave al pasar el ratón */
 }
 
 /* Sections */
@@ -155,16 +153,20 @@ section {
     margin: 0 auto;
     position: relative;
     z-index: 2;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+section.animate-in {
+    animation: fadeInUp 1s ease-out forwards;
 }
 
 .section-title {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 3rem;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #00CED1; /* Título de sección sólido Cyber Teal */
 }
 
 /* About Section */
@@ -179,7 +181,7 @@ section {
     width: 300px;
     height: 300px;
     border-radius: 50%;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+    background-color: #00CED1; /* Borde de la imagen de perfil Cyber Teal */
     padding: 4px;
     margin: 0 auto;
     display: flex;
@@ -193,7 +195,7 @@ section {
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    background: #1a1a2e;
+    background-color: #1A1A2E; /* Color de fondo secundario */
 }
 
 .about-text {
@@ -210,21 +212,27 @@ section {
 }
 
 .skill-card {
-    background: rgba(255, 255, 255, 0.05);
+    background-color: #1A1A2E; /* Fondo de tarjeta Dark Steel */
     padding: 2rem;
     border-radius: 20px;
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #3A3A4A; /* Borde Subtle Gray */
     transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.skill-card.animate-in {
+    animation: fadeInUp 1s ease-out forwards;
 }
 
 .skill-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(64, 224, 208, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 206, 209, 0.2); /* Sombra basada en Cyber Teal */
 }
 
 .skill-card h3 {
-    color: #40e0d0;
+    color: #00CED1; /* Título de habilidad en Cyber Teal */
     margin-bottom: 1rem;
     font-size: 1.3rem;
 }
@@ -236,11 +244,11 @@ section {
 }
 
 .skill-tag {
-    background: rgba(64, 224, 208, 0.2);
+    background-color: rgba(0, 206, 209, 0.1); /* Fondo de etiqueta Cyber Teal con transparencia */
     padding: 0.5rem 1rem;
     border-radius: 25px;
     font-size: 0.9rem;
-    border: 1px solid rgba(64, 224, 208, 0.3);
+    border: 1px solid rgba(0, 206, 209, 0.2); /* Borde de etiqueta Cyber Teal con transparencia */
 }
 
 /* Projects Section */
@@ -251,27 +259,33 @@ section {
 }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.05);
+    background-color: #1A1A2E; /* Fondo de tarjeta Dark Steel */
     border-radius: 20px;
     overflow: hidden;
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid #3A3A4A; /* Borde Subtle Gray */
     transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+.project-card.animate-in {
+    animation: fadeInUp 1s ease-out forwards;
 }
 
 .project-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(64, 224, 208, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 206, 209, 0.2); /* Sombra basada en Cyber Teal */
 }
 
 .project-image {
     height: 200px;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+    background-color: #9370DB; /* Color sólido Electric Violet para la imagen del proyecto */
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 3rem;
-    color: white;
+    color: #0F0F1A; /* Texto oscuro para el fondo brillante */
 }
 
 .project-content {
@@ -279,7 +293,7 @@ section {
 }
 
 .project-title {
-    color: #40e0d0;
+    color: #00CED1; /* Título de proyecto en Cyber Teal */
     margin-bottom: 1rem;
     font-size: 1.3rem;
 }
@@ -297,17 +311,17 @@ section {
 
 .project-link {
     padding: 0.5rem 1rem;
-    background: rgba(64, 224, 208, 0.2);
-    border: 1px solid rgba(64, 224, 208, 0.3);
+    background-color: rgba(0, 206, 209, 0.1); /* Fondo de enlace Cyber Teal con transparencia */
+    border: 1px solid rgba(0, 206, 209, 0.2); /* Borde de enlace Cyber Teal con transparencia */
     border-radius: 25px;
-    color: #40e0d0;
+    color: #00CED1; /* Texto de enlace en Cyber Teal */
     text-decoration: none;
     transition: all 0.3s ease;
     font-size: 0.9rem;
 }
 
 .project-link:hover {
-    background: rgba(64, 224, 208, 0.3);
+    background-color: rgba(0, 206, 209, 0.2);
     transform: translateY(-2px);
 }
 
@@ -336,31 +350,31 @@ section {
 .contact-icon {
     width: 60px;
     height: 60px;
-    background: linear-gradient(45deg, #40e0d0, #ff6b6b);
+    background-color: #00CED1; /* Íconos de contacto Cyber Teal */
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    color: white;
+    color: #0F0F1A; /* Texto oscuro para el fondo brillante */
 }
 
 .contact-item a {
-    color: #40e0d0;
+    color: #00CED1; /* Enlace de contacto en Cyber Teal */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .contact-item a:hover {
-    color: #ff6b6b;
+    color: #9370DB; /* Electric Violet al pasar el ratón */
 }
 
 /* Footer */
 footer {
-    background: rgba(15, 15, 35, 0.9);
+    background-color: rgba(15, 15, 26, 0.95); /* Fondo del footer más oscuro */
     text-align: center;
     padding: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid #3A3A4A; /* Borde Subtle Gray */
 }
 
 /* Animations */
@@ -375,10 +389,11 @@ footer {
     }
 }
 
-@keyframes gradient {
+/* Eliminado el keyframe 'gradient' ya que no se usa */
+/* @keyframes gradient {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
-}
+} */
 
 @keyframes pulse {
     0%, 100% { transform: scale(1); }
