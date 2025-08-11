@@ -265,7 +265,6 @@ section.animate-in {
     backdrop-filter: blur(20px);
     border: 1px solid #3A3A4A; /* Borde Subtle Gray */
     transition: all 0.3s ease;
-    opacity: 0;
     transform: translateY(50px);
 }
 

@@ -1,55 +1,61 @@
 // backend/server.js
 
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
+const { Pool } = require('pg');
 const app = express();
-const PORT = process.env.PORT || 3000; // Define el puerto, usa 3000 por defecto
+const PORT = process.env.PORT || 3000;
 
-// --- Middleware para servir archivos estáticos ---
-// Esto le dice a Express que sirva los archivos de tu frontend (HTML, CSS, JS)
-// desde la carpeta raíz de tu proyecto de portfolio.
-// `path.join(__dirname, '..')` apunta a la carpeta principal donde están index.html y styles.css.
-app.use(express.static(path.join(__dirname, '..')));
+require('dotenv').config();
 
-// --- Rutas para servir tu portfolio HTML ---
-// Sirve el archivo index.html cuando alguien accede a la raíz de tu servidor.
+app.use(express.json());
+app.use(cors());
+
+// Configuración de la base de datos PostgreSQL
+const pool = new Pool({
+  user: process.env.DB_USER,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+});
+
+// Comprobar la conexión a la base de datos
+pool.connect((err, client, release) => {
+  if (err) {
+    return console.error('Error al conectar a la base de datos:', err.stack);
+  }
+  console.log('Conectado a la base de datos PostgreSQL.');
+  release();
+});
+
+// Middleware para servir archivos estáticos
+// Sirve todos los archivos de la raíz del proyecto.
+// Es crucial que el volumen en docker-compose.yml esté configurado como `.:/app`
+// para que esta ruta funcione correctamente dentro del contenedor.
+const projectRoot = path.join(__dirname, '..');
+app.use(express.static(projectRoot));
+
+// Rutas para tu API
+app.get('/api/projects', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM projects ORDER BY id ASC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error al obtener proyectos:', err);
+    res.status(500).send('Error del servidor');
+  }
+});
+
+// Rutas para servir tu portfolio HTML
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'));
+  // Sirve el archivo index.html que está en la raíz del proyecto.
+  res.sendFile(path.join(projectRoot, 'index.html'));
 });
 
-// --- Endpoint de la API para proyectos (¡aquí es donde irá la base de datos!) ---
-// Por ahora, devolveremos datos estáticos para simular la base de datos.
-app.get('/api/projects', (req, res) => {
-    // Estos datos se "leerán" de tu base de datos más adelante.
-    const projects = [
-        {
-            id: 'cognitive-games',
-            image: '🧠',
-            title: 'Cognitive Training Games',
-            description: 'Development of 2D and 3D video games for cognitive assessment and training, fully integrated into a web platform using Angular. Built using Phaser and PlayCanvas, with real-time feedback systems and adaptive difficulty.',
-            link: 'https://github.com/DanielRabasco/cognitive-games-repo' // Ejemplo de enlace a GitHub
-        },
-        {
-            id: 'vr-training',
-            image: '🕶️',
-            title: 'VR Industrial Training System',
-            description: 'Created a Virtual Reality system for training automotive seat assembly workers, using Unity and OptiTrack motion capture technology. The project was part of the SIEMA initiative for immersive industrial training.',
-            link: 'https://github.com/DanielRabasco/vr-training-repo' // Ejemplo de enlace a GitHub
-        },
-        {
-            id: 'platform-integration',
-            image: '🔗',
-            title: 'Platform Integration at CogniFit',
-            description: 'Led software integrations with third-party platforms as a Product Manager. Coordinated cross-functional teams to ensure smooth interoperability and optimized data flow between systems.',
-            link: 'https://github.com/DanielRabasco/platform-integration-repo' // Ejemplo de enlace a GitHub
-        }
-        // Puedes añadir más proyectos aquí
-    ];
-    res.json(projects); // Envía los proyectos como JSON
-});
-
-// --- Iniciar el servidor ---
+// Iniciar el servidor Express
 app.listen(PORT, () => {
-    console.log(`Servidor Express ejecutándose en http://localhost:${PORT}`);
-    console.log('Tu portfolio está disponible en la misma dirección.');
+  console.log(`Servidor Express ejecutándose en http://localhost:${PORT}`);
+  console.log('Tu portfolio está disponible en la misma dirección.');
 });
